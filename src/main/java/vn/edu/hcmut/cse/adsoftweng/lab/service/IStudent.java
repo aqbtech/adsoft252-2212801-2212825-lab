@@ -8,4 +8,12 @@ public interface IStudent {
     List<Student> getAllStudents();
 
     Student getStudentById(String id);
+
+    List<Student> searchByName(String keyword);
+
+    Student save(Student student);
+
+    Student update(String id, Student student);
+
+    void delete(String id);
 }

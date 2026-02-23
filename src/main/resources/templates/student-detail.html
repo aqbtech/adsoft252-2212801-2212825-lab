@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${student.name} + ' — Chi Tiết'">Chi Tiết Sinh Viên</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: #111;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #111;
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        header span {
+            font-size: .8rem;
+            color: #999;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 36px auto;
+            padding: 0 24px;
+        }
+
+        .breadcrumb {
+            font-size: .82rem;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            color: #111;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .card-head {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .card-head h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .card-head span {
+            font-size: .8rem;
+            color: #999;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ── Info rows ── */
+        .info-list {
+            padding: 8px 0;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            padding: 13px 24px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            width: 90px;
+            flex-shrink: 0;
+            font-size: .78rem;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .info-value {
+            font-size: .92rem;
+            color: #111;
+        }
+
+        /* ── Actions ── */
+        .card-foot {
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .card-foot-right {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: .88rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-decoration: none;
+            transition: background .15s, color .15s;
+        }
+
+        .btn-dark {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+
+        .btn-dark:hover {
+            background: #333;
+        }
+
+        .btn-ghost {
+            background: #fff;
+            color: #555;
+            border-color: #d1d5db;
+        }
+
+        .btn-ghost:hover {
+            background: #f5f5f5;
+            color: #111;
+        }
+
+        .btn-del {
+            background: #fff;
+            color: #c00;
+            border-color: #fca5a5;
+        }
+
+        .btn-del:hover {
+            background: #fff5f5;
+        }
+
+        /* ── Modal ── */
+        .modal-bg {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .4);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-bg.open {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 28px;
+            max-width: 380px;
+            width: 90%;
+        }
+
+        .modal h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal p {
+            font-size: .88rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Quản Lý Sinh Viên</h1>
+        <span>Student Management System</span>
+    </header>
+
+    <div class="container">
+
+        <div class="breadcrumb">
+            <a href="/students">Danh sách</a> / <span th:text="${student.name}">Sinh viên</span>
+        </div>
+
+        <div class="card">
+
+            <div class="card-head">
+                <h2 th:text="${student.name}">Tên sinh viên</h2>
+                <span th:text="'ID: ' + ${student.id}">ID</span>
+            </div>
+
+            <div class="info-list">
+                <div class="info-row">
+                    <span class="info-label">MSSV</span>
+                    <span class="info-value" th:text="${student.id}">—</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Họ tên</span>
+                    <span class="info-value" th:text="${student.name}">—</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email</span>
+                    <span class="info-value" th:text="${student.email}">—</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Tuổi</span>
+                    <span class="info-value" th:text="${student.age}">—</span>
+                </div>
+            </div>
+
+            <div class="card-foot">
+                <a href="/students" class="btn btn-ghost">← Quay lại</a>
+                <div class="card-foot-right">
+                    <button class="btn btn-del"
+                        onclick="document.getElementById('delModal').classList.add('open')">Xóa</button>
+                    <a class="btn btn-dark" th:href="@{/students/{id}/edit(id=${student.id})}">Chỉnh sửa</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Delete modal -->
+    <div class="modal-bg" id="delModal">
+        <div class="modal">
+            <h3>Xác nhận xóa</h3>
+            <p>
+                Bạn có chắc muốn xóa sinh viên
+                <strong th:text="${student.name}"></strong> không?
+                Hành động này không thể hoàn tác.
+            </p>
+            <div class="modal-actions">
+                <button class="btn btn-ghost"
+                    onclick="document.getElementById('delModal').classList.remove('open')">Hủy</button>
+                <form th:action="@{/students/{id}/delete(id=${student.id})}" method="POST" style="display:inline">
+                    <button type="submit" class="btn btn-del">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('delModal').addEventListener('click', function (e) {
+            if (e.target === this) this.classList.remove('open');
+        });
+    </script>
+
+</body>
+
+</html>
