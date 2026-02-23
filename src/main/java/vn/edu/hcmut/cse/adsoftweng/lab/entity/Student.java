@@ -6,7 +6,6 @@ import jakarta.persistence.Table;
 
 import lombok.*;
 
-import java.util.List;
 @Entity
 @Table(name = "students")
 @Getter
