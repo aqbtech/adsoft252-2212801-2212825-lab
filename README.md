@@ -7,8 +7,8 @@
 
 | MSSV    | Họ và Tên              |
 | ------- | ---------------------- |
-| 2212801 | Từ Văn Nguyễn Anh Quân |
-| 2212825 | Nguyễn Minh Quân       |
+| 2212825 | Từ Văn Nguyễn Anh Quân |
+| 2212801 | Nguyễn Minh Quân       |
 
 ## Công nghệ sử dụng
 
