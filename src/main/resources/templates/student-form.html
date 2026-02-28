@@ -65,8 +65,10 @@
 
         .actions {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            margin-top: 25px;
         }
 
         .btn {
@@ -132,8 +134,8 @@
                 </div>
 
                 <div class="actions">
-                    <button type="submit" class="btn btn-success">Lưu</button>
                     <a th:href="@{/students}" class="btn btn-secondary">Hủy</a>
+                    <button type="submit" class="btn btn-success">Lưu</button>
                 </div>
             </form>
         </div>
