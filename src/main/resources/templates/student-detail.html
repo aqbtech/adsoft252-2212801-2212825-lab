@@ -60,8 +60,14 @@
 
         .actions {
             display: flex;
+            align-items: center;
+        }
+
+        .right-actions {
+            margin-left: auto;
+            /* đẩy sang phải */
+            display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .btn {
@@ -138,15 +144,17 @@
         </div>
 
         <div class="actions">
-            <a th:href="@{/students/{id}/edit(id=${student.id})}" class="btn btn-warning">Chỉnh Sửa</a>
+            <a th:href="@{/students}" class="btn btn-secondary">
+                ← Quay về Danh Sách
+            </a>
 
-            <!-- Nút Xóa với Confirm Dialog -->
-            <form th:action="@{/students/{id}/delete(id=${student.id})}" method="post"
-                onsubmit="return confirm('Bạn có chắc chắn muốn xóa sinh viên này?');">
-                <button type="submit" class="btn btn-danger">Xóa</button>
-            </form>
-
-            <a th:href="@{/students}" class="btn btn-secondary">← Quay về Danh Sách</a>
+            <div class="right-actions">
+                <form th:action="@{/students/{id}/delete(id=${student.id})}" method="post"
+                    onsubmit="return confirm('Bạn có chắc chắn muốn xóa sinh viên này?');">
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+                <a th:href="@{/students/{id}/edit(id=${student.id})}" class="btn btn-warning">Chỉnh Sửa</a>
+            </div>
         </div>
     </div>
 </body>

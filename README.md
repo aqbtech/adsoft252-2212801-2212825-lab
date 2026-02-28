@@ -10,6 +10,40 @@
 | 2212825 | Từ Văn Nguyễn Anh Quân |
 | 2212801 | Nguyễn Minh Quân       |
 
+## Public URL của Web Service
+https://adsoft252-2212801-2212825-lab.onrender.com/
+
+
+## Cách chạy dự án (Local)
+
+### Yêu cầu
+
+- Java 17+
+- Maven 3.9+
+- PostgreSQL
+
+### Bước 1: Cấu hình database
+
+Tạo file `.env` tại thư mục gốc:
+
+```env
+DATABASE_URL=jdbc:postgresql://localhost:5432/student_management
+DB_USERNAME=postgres
+DB_PASSWORD=your_password_here
+```
+
+### Bước 2: Export các biến môi trường và chạy ứng dụng
+
+```bash
+set -a && source .env && set +a && ./mvnw spring-boot:run
+```
+
+Truy cập: [http://localhost:8080/students](http://localhost:8080/students)
+
+## Trả lời cho các câu hỏi lý thuyết trong phần Lab
+
+## Screenshot cho các module trong Lab 4
+
 ## Công nghệ sử dụng
 
 - **Backend:** Spring Boot 4.0.2, Spring Data JPA
@@ -53,32 +87,6 @@ src/main/resources/
 │   └── student-form.html           # Form thêm/sửa
 └── application.properties
 ```
-
-## Chạy ứng dụng (Local)
-
-### Yêu cầu
-
-- Java 17+
-- Maven 3.9+
-- PostgreSQL
-
-### Bước 1: Cấu hình database
-
-Tạo file `.env` tại thư mục gốc:
-
-```env
-DATABASE_URL=jdbc:postgresql://localhost:5432/student_management
-DB_USERNAME=postgres
-DB_PASSWORD=your_password_here
-```
-
-### Bước 2: Export các biến môi trường và chạy ứng dụng
-
-```bash
-set -a && source .env && set +a && ./mvnw spring-boot:run
-```
-
-Truy cập: [http://localhost:8080/students](http://localhost:8080/students)
 
 ## Triển khai (Deployment)
 
